@@ -21,7 +21,7 @@ The Adaptive Traffic Light Controller is a Verilog-based smart traffic managemen
   ### - View the [State Transition Diagram](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/state_transition_diagram.svg) for this project.
 
 ## 3. Code   
-### - View the [Traffic light controller code](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/adaptive_traffic_light_controller/traffic_light_controller.v) for this project.
+### - View the [Main code](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/adaptive_traffic_light_controller/traffic_light_controller.v) for this project.
 
 ### - View the [Testbench code](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/testbench/testbench.v) for this project.
 
@@ -30,7 +30,7 @@ The Adaptive Traffic Light Controller is a Verilog-based smart traffic managemen
 
 
 ## 5. Waveform
-### - View the [waveform](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/waveform.png) for this project.
+### - View the [Waveform](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/waveform.png) for this project.
 
 
 
