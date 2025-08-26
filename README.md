@@ -18,7 +18,7 @@ The Adaptive Traffic Light Controller is a Verilog-based smart traffic managemen
 ## 2. State Transition Diagram
    - States include IDLE, PED, N_GREEN, N_YELLOW, S_GREEN, S_YELLOW, E_GREEN, E_YELLOW, W_GREEN, W_YELLOW.
    - State transitions are determined by request priority and active counters.
-  ### - View the [State Transition Diagram](https://drive.google.com/file/d/1KJ17nwTr-NjIsqiZPtOjgaOoc-zV00f6/view?usp=sharing) for this project.
+  ### - View the [State Transition Diagram](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/state_transition_diagram.svg) for this project.
 
 ## 3. Code   
 ### - View the [Traffic light controller code](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/adaptive_traffic_light_controller/traffic_light_controller.v) for this project.
@@ -30,7 +30,7 @@ The Adaptive Traffic Light Controller is a Verilog-based smart traffic managemen
 
 
 ## 5. Waveform
-### - View the [RTL Schematic](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/waveform.png) for this project.
+### - View the [waveform](https://github.com/yaman-tewatia/Smart-Traffic-Light-Controller/blob/main/waveform.png) for this project.
 
 
 
