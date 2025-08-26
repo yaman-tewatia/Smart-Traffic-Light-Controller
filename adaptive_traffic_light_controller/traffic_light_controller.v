@@ -1,18 +1,18 @@
-module smart_traffic_light(
-  input clk,
+`timescale 1ns / 1ps
+
+module adaptive_TLC(
+ input clk,
   input reset,
   input pedestrian_button,
-  input [3:0] emergency,   // {N, S, E, W}
+  input [3:0] emergency,   
   input car_n, car_s, car_e, car_w,
   output reg [2:0] n, s, e, w
-);
-
-  // Light codes
+    );
+    
   localparam GREEN  = 3'b001;
   localparam YELLOW = 3'b010;
   localparam RED    = 3'b100;
 
-  // FSM States
   localparam 
     IDLE     = 4'b0000,
     PED      = 4'b0001,
@@ -24,10 +24,9 @@ module smart_traffic_light(
 
   reg [3:0] state;
   reg [3:0] count;
-
-  // Internal flags
   reg [3:0] emergency_pending;
   reg pedestrian_pending;
+  reg [3:0] car_pending;
 
   always @(posedge clk) begin 
     if (reset) begin
@@ -35,21 +34,24 @@ module smart_traffic_light(
       count <= 4'd0;
       emergency_pending <= 4'b0000;
       pedestrian_pending <= 1'b0;
+      car_pending <= 4'b0000;
     end
+    
     else begin
 
-      // ✅ FIXED emergency and pedestrian latching logic
       if (emergency != 4'b0000)
         emergency_pending <= emergency_pending | emergency;
 
       if (pedestrian_button)
         pedestrian_pending <= 1;
 
+      if (car_n | car_s | car_e | car_w)
+        car_pending <= car_pending | {car_n, car_s, car_e, car_w}; 
+
       case (state)
 
-        // --------------------------------
         IDLE: begin
-          // ✅ FIXED condition
+          
           if (emergency_pending != 4'b0000) begin 
             if (emergency_pending[3]) begin
               state <= N_GREEN;
@@ -69,25 +71,30 @@ module smart_traffic_light(
             end
             count <= 0;
           end
+          
           else if (pedestrian_pending) begin
             state <= PED;
             pedestrian_pending <= 0;
             count <= 0;
           end
-          else if (car_n) begin
-            state <= N_GREEN;
-            count <= 0;
-          end
-          else if (car_s) begin
-            state <= S_GREEN;
-            count <= 0;
-          end
-          else if (car_e) begin
-            state <= E_GREEN;
-            count <= 0;
-          end
-          else if (car_w) begin
-            state <= W_GREEN;
+          
+          else if (car_pending != 4'b0000) begin
+            if (car_pending[3]) begin
+              state <= N_GREEN;
+              car_pending[3] <= 0;
+            end
+            else if (car_pending[2]) begin
+              state <= S_GREEN;
+              car_pending[2] <= 0;
+            end
+            else if (car_pending[1]) begin
+              state <= E_GREEN;
+              car_pending[1] <= 0;
+            end
+            else if (car_pending[0]) begin
+              state <= W_GREEN;
+              car_pending[0] <= 0;
+            end
             count <= 0;
           end
           else begin
@@ -95,9 +102,8 @@ module smart_traffic_light(
           end
         end
 
-        // PED signal
         PED: begin
-          if (count == 4'd4) begin  // Stay for 5 clock cycles
+          if (count == 4'd4) begin  
             count <= 0;
             state <= IDLE;
           end
@@ -139,7 +145,7 @@ module smart_traffic_light(
             state <= S_GREEN;
           end
         end
-
+        
         S_YELLOW: begin
           if (count == 4'd3) begin
             count <= 0;
